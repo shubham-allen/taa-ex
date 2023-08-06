@@ -7,14 +7,17 @@
 package main
 
 import (
+	"github.com/go-kratos/kratos/v2"
+	"github.com/go-kratos/kratos/v2/log"
 	"taa-ex/internal/biz"
 	"taa-ex/internal/conf"
 	"taa-ex/internal/data"
 	"taa-ex/internal/server"
 	"taa-ex/internal/service"
+)
 
-	"github.com/go-kratos/kratos/v2"
-	"github.com/go-kratos/kratos/v2/log"
+import (
+	_ "go.uber.org/automaxprocs"
 )
 
 // Injectors from wire.go:
@@ -25,8 +28,8 @@ func wireApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*
 	if err != nil {
 		return nil, nil, err
 	}
-	taaEngineRepository := data.NewTaaEngineRepository(dataData, logger)
-	taaEngineHandler := biz.NewTaaEngineHandler(taaEngineRepository, logger)
+	taaEngineRepo := data.NewTaaEngineRepository(dataData, logger)
+	taaEngineHandler := biz.NewTaaEngineHandler(taaEngineRepo, logger)
 	taaEngineService := service.NewTaaEngineService(taaEngineHandler, logger)
 	grpcServer := server.NewGRPCServer(confServer, taaEngineService, logger)
 	httpServer := server.NewHTTPServer(confServer, taaEngineService, logger)

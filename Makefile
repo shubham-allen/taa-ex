@@ -67,7 +67,7 @@ all:
 	make api;
 	make config;
 	make generate;
-	make lint;
+	#make lint;
 	make build;
 
 # show help

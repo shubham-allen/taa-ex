@@ -3,8 +3,41 @@
 
 openapi: 3.0.3
 info:
-    title: ""
+    title: TaaEngine API
+    description: The greeting service definition.
     version: 0.0.1
-paths: {}
+paths:
+    /v1/taaEngines:
+        post:
+            tags:
+                - TaaEngine
+            description: Sample function
+            operationId: TaaEngine_CreateTaaEngine
+            parameters:
+                - name: name
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.taa_engine.v1.CreateTaaEngineResponse'
 components:
-    schemas: {}
+    schemas:
+        api.taa_engine.v1.CreateTaaEngineResponse:
+            type: object
+            properties:
+                info:
+                    $ref: '#/components/schemas/api.taa_engine.v1.TaaEngineInfo'
+            description: The response message containing service response
+        api.taa_engine.v1.TaaEngineInfo:
+            type: object
+            properties:
+                name:
+                    type: string
+            description: Service info
+tags:
+    - name: TaaEngine

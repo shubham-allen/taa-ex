@@ -38,6 +38,7 @@ message CreateTaaEngineResponse {
   TaaEngineInfo info = 1;
 }
 
+
 enum ErrorReason {
 	// Set default error code.
 	option (errors.default_code) = 500;
