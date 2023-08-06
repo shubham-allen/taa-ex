@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package api.taa_engine.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "validate/validate.proto";
+import "errors/errors.proto";
+
+option go_package = "taa-ex/api/taa_engine/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.taa_engine.v1";
+option java_outer_classname = "TaaEngineProtoV1";
+
+// The greeting service definition.
+service TaaEngine {
+// Sample function
+    rpc CreateTaaEngine (CreateTaaEngineRequest) returns (CreateTaaEngineResponse) {
+      option (google.api.http) = {
+          post: "/v1/taaEngines"
+     };
+   }
+ }
+
+// Service info
+message TaaEngineInfo {
+    string name = 1;
+}
+
+// The request message containing service request.
+message CreateTaaEngineRequest {
+  string name = 1;
+}
+
+// The response message containing service response
+message CreateTaaEngineResponse {
+  TaaEngineInfo info = 1;
+}
+
+enum ErrorReason {
+	// Set default error code.
+	option (errors.default_code) = 500;
+	USER_UNSPECIFIED = 0 [(errors.code) = 500];
+	USER_NOT_FOUND = 1 [(errors.code) = 404];
+	USER_NOT_CREATED = 2 [(errors.code) = 400];
+	USER_ALREADY_EXIST = 3[(errors.code) = 400];
+}
